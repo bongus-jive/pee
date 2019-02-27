@@ -1,0 +1,15 @@
+{
+  "projectileName" : "pat_bloodpeegunp1",
+  "image" : "blood.png",
+  "physics" : "grenade",
+  "animationCycle" : 0.25,
+  "frameNumber" : 1,
+  "damageKind" : "nodamage",
+  "pointLight" : false,
+  "flippable" : true,
+  "actionOnReap" : [ ],
+  "statusEffects" : [ ],
+  "power" : 5.0,
+  "speed" : 25,
+  "knockback" : 0
+}

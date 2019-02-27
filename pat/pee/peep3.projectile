@@ -1,0 +1,15 @@
+{
+  "projectileName" : "pat_peegunp3",
+  "image" : "peep.png",
+  "physics" : "grenade",
+  "animationCycle" : 0.25,
+  "frameNumber" : 1,
+  "damageKind" : "nodamage",
+  "pointLight" : false,
+  "flippable" : true,
+  "actionOnReap" : [ ],
+  "statusEffects" : [ ],
+  "power" : 5.0,
+  "speed" : 15,
+  "knockback" : 0
+}

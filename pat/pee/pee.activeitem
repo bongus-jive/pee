@@ -1,0 +1,169 @@
+{
+  "itemName" : "pat_peegun",
+  "price" : 69420666,
+  "maxStack" : 1,
+  "rarity" : "Essential",
+  "description" : "pee on your enemies",
+  "shortdescription" : "pee",
+  "tooltipKind" : "gun",
+  "category" : "yes",
+  "twoHanded" : true,
+  "itemTags" : ["weapon","ranged","upgradeableWeapon"],
+  "level" : 5,
+
+  "inventoryIcon" : "icon.png",
+
+  "animation" : "/items/active/weapons/ranged/gun.animation",
+  "animationParts" : {
+    "butt" : "",
+    "middle" : "",
+    "barrel" : "",
+    "muzzleFlash" : ""
+  },
+  "animationCustom" : {
+    "sounds" : {
+      "fire" : ["/sfx/tools/wateringcan1.ogg","/sfx/tools/wateringcan2.ogg","/sfx/tools/wateringcan3.ogg","/sfx/tools/wateringcan4.ogg"]
+    }
+  },
+
+  "baseOffset" : [0.5, 0.15],
+  "muzzleOffset" : [-0.7, -1.1],
+
+  "scripts" : ["/items/active/weapons/ranged/gun.lua"],
+
+  "elementalType" : "physical",
+
+  "primaryAbility" : {
+    "scripts" : ["/pat/pee/pee.lua"],
+    "class" : "GunFire",
+
+    "fireTime" : 0.005,
+    "baseDps" : 0,
+    "energyUsage" : 300,
+    "inaccuracy" : 0.001,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "projectileType" : "pat_peegunp",
+    "projectileParameters" : {
+      "knockback" : 0
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "walk.1",
+        "backArmFrame" : "idle.1"
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "walk.1",
+        "backArmFrame" : "idle.1"
+      },
+      "cooldown" : {
+        "duration" : 0.001,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "walk.1",
+        "backArmFrame" : "idle.1"
+      }
+    }
+	},
+
+  "altAbility" : {
+    "name" : "red pee",
+    "scripts" : ["/pat/pee/blood/blood.lua"],
+    "class" : "GunFire",
+
+    "fireTime" : 0.005,
+    "baseDps" : 0,
+    "energyUsage" : 200,
+    "inaccuracy" : 0.001,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "projectileType" : "pat_bloodpeegunp",
+    "projectileParameters" : {
+      "knockback" : 0
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "walk.1",
+        "backArmFrame" : "idle.1"
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "walk.1",
+        "backArmFrame" : "idle.1"
+      },
+      "cooldown" : {
+        "duration" : 0.001,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "walk.1",
+        "backArmFrame" : "idle.1"
+      }
+    }
+  },
+
+  "builder" : "/items/buildscripts/buildunrandweapon.lua",
+
+  "upgradeParameters" : {
+    "inventoryIcon" : "icon_l6.png",
+    "shortdescription" : "^yellow;pee^reset;",
+		"primaryAbility" : {
+			"projectileParameters" : {
+				"actionOnReap" : [ 
+					{ 
+						"action" : "liquid", 
+						"liquid" : "pat_peel", "quantity" : 1 
+					}
+				]
+			}
+		},
+		"altAbility" : {
+			"baseDps" : 30,
+			"projectileParameters" : {
+				"damageKind" : "standardbullet"
+			}
+		}
+  }
+}
