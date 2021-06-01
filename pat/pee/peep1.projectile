@@ -1,5 +1,5 @@
 {
-  "projectileName" : "pat_peegunp1",
+  "projectileName" : "pat_peegunp",
   "image" : "peep.png",
   "physics" : "grenade",
   "animationCycle" : 0.25,

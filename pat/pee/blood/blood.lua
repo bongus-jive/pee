@@ -97,7 +97,7 @@ function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, fi
   local params = sb.jsonMerge(self.projectileParameters, projectileParams or {})
   params.power = self:damagePerShot()
   params.powerMultiplier = activeItem.ownerPowerMultiplier()
-  params.speed = util.randomInRange(params.speed)
+  params.speed = 100 / (100 - (25 * status.resourcePercentage("health"))) * 10
 
   if not projectileType then
     projectileType = self.projectileType
@@ -106,7 +106,7 @@ function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, fi
     projectileType = projectileType[math.random(#projectileType)]
   end
 	
-	if status.resourcePercentage("health") >= 0.85 then
+	--[[if status.resourcePercentage("health") >= 0.85 then
 		projectileType = projectileType.."1"
 	elseif 0.85 > status.resourcePercentage("health") and status.resourcePercentage("health") >= 0.75 then
 		if math.random(1,2) == 1 then
@@ -124,7 +124,7 @@ function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, fi
 		projectileType = projectileType.."3"
 	else
 		projectileType = projectileType.."2"
-	end
+	end]]--
 
   local projectileId = 0
   for i = 1, (projectileCount or self.projectileCount) do

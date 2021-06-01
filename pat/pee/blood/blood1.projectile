@@ -1,5 +1,5 @@
 {
-  "projectileName" : "pat_bloodpeegunp1",
+  "projectileName" : "pat_bloodpeegunp",
   "image" : "blood.png",
   "physics" : "grenade",
   "animationCycle" : 0.25,
