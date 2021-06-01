@@ -23,6 +23,8 @@ function GunFire:update(dt, fireMode, shiftHeld)
     animator.setLightActive("muzzleFlash", false)
   end
 
+	activeItem.setCursor("/pat/pee/cursor/"..math.ceil(status.resourcePercentage("energy") * 10)..".cursor")
+	
   if self.fireMode == (self.activatingFireMode or self.abilitySlot)
     and not self.weapon.currentAbility
     and self.cooldownTimer == 0
