@@ -1,7 +1,5 @@
 {
-  "input" : [
-    { "item" : "money", "count" : 1 }
-  ],
-  "output" : { "item" : "pat_peegun", "count" : 1 },
-  "groups" : [ "plain", "all" ]
+  "input": [ ],
+  "output": { "item": "pat_peegun", "count": 1 },
+  "groups": [ "plain", "all" ]
 }
