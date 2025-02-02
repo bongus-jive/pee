@@ -1,171 +1,69 @@
+require "/scripts/vec2.lua"
 require "/scripts/util.lua"
-require "/scripts/interp.lua"
 
--- Base gun fire ability
-GunFire = WeaponAbility:new()
-
-function GunFire:init()
-  self.weapon:setStance(self.stances.idle)
-
-  self.cooldownTimer = self.fireTime
-
-  self.weapon.onLeaveAbility = function()
-    self.weapon:setStance(self.stances.idle)
+function init()
+  for k, v in pairs(config.getParameter("scriptConfig", {})) do
+    self[k] = v
   end
+
+  animator.playSound("unzip")
+
+  activeItem.setFrontArmFrame(self.armFrames[1])
+  activeItem.setBackArmFrame(self.armFrames[2])
+
+  self.ownerId = activeItem.ownerEntityId()
+
+  self.aimOffset = self.projectileOffset[2] - 0.25 -- weapon.lua line 11 moment
+  self.pissAngle = 0
+
+  self.soundRepeatTimer = 0
 end
 
-function GunFire:update(dt, fireMode, shiftHeld)
-  WeaponAbility.update(self, dt, fireMode, shiftHeld)
-
-  self.cooldownTimer = math.max(0, self.cooldownTimer - self.dt)
-
-  if animator.animationState("firing") ~= "fire" then
-    animator.setLightActive("muzzleFlash", false)
+function update(dt, fireMode, shiftHeld, moves)
+  self.aimAngle, self.aimDirection = activeItem.aimAngleAndDirection(self.aimOffset, activeItem.ownerAimPosition())
+  self.pissAngle = approach(self.pissAngle, self.aimAngle * self.aimAngleMultiplier, self.aimAngleApproach)
+  
+  if self.soundRepeatTimer > 0 then
+    self.soundRepeatTimer = math.max(0, self.soundRepeatTimer - dt)
   end
 
-	activeItem.setCursor("/pat/pee/cursor/"..math.ceil(status.resourcePercentage("energy") * 10)..".cursor")
-	
-  if self.fireMode == (self.activatingFireMode or self.abilitySlot)
-    and not self.weapon.currentAbility
-    and self.cooldownTimer == 0
-    and not status.resourceLocked("energy") then
+  local standing = not mcontroller.crouching()
+  activeItem.setHoldingItem(standing)
 
-    if self.fireType == "auto" and status.overConsumeResource("energy", self:energyPerShot()) then
-      self:setState(self.auto)
-    elseif self.fireType == "burst" then
-      self:setState(self.burst)
+  if standing then
+    activeItem.setFacingDirection(self.aimDirection)
+
+    local firing = fireMode ~= "none"
+    activeItem.setRecoil(not firing)
+
+    if firing and status.overConsumeResource("energy", self.energyUsage * dt) then
+      piss()
     end
   end
 end
 
-function GunFire:auto()
-  self.weapon:setStance(self.stances.fire)
-
-  self:fireProjectile()
-  self:muzzleFlash()
-
-  if self.stances.fire.duration then
-    util.wait(self.stances.fire.duration)
+function piss()
+  if self.soundRepeatTimer == 0 then
+    self.soundRepeatTimer = self.soundRepeatTime
+    animator.setSoundPitch("piss", util.randomInRange(self.soundPitchRange))
+    animator.playSound("piss")
   end
 
-  self.cooldownTimer = self.fireTime
-  self:setState(self.cooldown)
+  local position = vec2.add(mcontroller.position(), activeItem.handPosition(self.projectileOffset))
+ 
+  local aimVector = vec2.rotate({1, 0}, self.pissAngle + sb.nrand(self.inaccuracy, 0))
+  aimVector[1] = aimVector[1] * self.aimDirection
+
+  local params = {}
+  params.speed = util.interpolateHalfSigmoid(status.resourcePercentage("energy"), self.speedRange)
+
+  world.spawnProjectile(self.projectileType, position, self.ownerId, aimVector, false, params)
 end
 
-function GunFire:burst()
-  self.weapon:setStance(self.stances.fire)
-
-  local shots = self.burstCount
-  while shots > 0 and status.overConsumeResource("energy", self:energyPerShot()) do
-    self:fireProjectile()
-    self:muzzleFlash()
-    shots = shots - 1
-
-    self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(1 - shots / self.burstCount, 0, self.stances.fire.weaponRotation))
-    self.weapon.relativeArmRotation = util.toRadians(interp.linear(1 - shots / self.burstCount, 0, self.stances.fire.armRotation))
-
-    util.wait(self.burstTime)
-  end
-
-  self.cooldownTimer = (self.fireTime - self.burstTime) * self.burstCount
+function approach(current, target, rate)
+  local max = math.abs(target - current)
+  if max <= rate then return target end
+  local fractionalRate = rate / max
+  return current + fractionalRate * (target - current)
 end
 
-function GunFire:cooldown()
-  self.weapon:setStance(self.stances.cooldown)
-  self.weapon:updateAim()
-
-  local progress = 0
-  util.wait(self.stances.cooldown.duration, function()
-    local from = self.stances.cooldown.weaponOffset or {0,0}
-    local to = self.stances.idle.weaponOffset or {0,0}
-    self.weapon.weaponOffset = {interp.linear(progress, from[1], to[1]), interp.linear(progress, from[2], to[2])}
-
-    self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(progress, self.stances.cooldown.weaponRotation, self.stances.idle.weaponRotation))
-    self.weapon.relativeArmRotation = util.toRadians(interp.linear(progress, self.stances.cooldown.armRotation, self.stances.idle.armRotation))
-
-    progress = math.min(1.0, progress + (self.dt / self.stances.cooldown.duration))
-  end)
-end
-
-function GunFire:muzzleFlash()
-  animator.setPartTag("muzzleFlash", "variant", math.random(1, 3))
-  animator.setAnimationState("firing", "fire")
-  animator.burstParticleEmitter("muzzleFlash")
-  animator.playSound("fire")
-
-  animator.setLightActive("muzzleFlash", true)
-end
-
-function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, firePosition, projectileCount)
-  local params = sb.jsonMerge(self.projectileParameters, projectileParams or {})
-  params.power = self:damagePerShot()
-  params.powerMultiplier = activeItem.ownerPowerMultiplier()
-  params.speed = 100 / (100 - (45 * status.resourcePercentage("energy"))) * 15
-
-  if not projectileType then
-    projectileType = self.projectileType
-  end
-  if type(projectileType) == "table" then
-    projectileType = projectileType[math.random(#projectileType)]
-  end
-	
-	--[[if status.resourcePercentage("energy") >= 0.85 then
-		projectileType = projectileType.."1"
-	elseif 0.85 > status.resourcePercentage("energy") and status.resourcePercentage("energy") >= 0.75 then
-		if math.random(1,2) == 1 then
-			projectileType = projectileType.."1"
-		else
-			projectileType = projectileType.."2"
-		end
-	elseif 0.25 >= status.resourcePercentage("energy") and status.resourcePercentage("energy") > 0.15 then
-		if math.random(1,2) == 1 then
-			projectileType = projectileType.."2"
-		else
-			projectileType = projectileType.."3"
-		end
-	elseif 0.15 >= status.resourcePercentage("energy") and status.resourcePercentage("energy") > 0 then
-		projectileType = projectileType.."3"
-	else
-		projectileType = projectileType.."2"
-	end]]--
-	
-	status.giveResource("health", 1.5)
-
-  local projectileId = 0
-  for i = 1, (projectileCount or self.projectileCount) do
-    if params.timeToLive then
-      params.timeToLive = util.randomInRange(params.timeToLive)
-    end
-
-    projectileId = world.spawnProjectile(
-        projectileType,
-        firePosition or self:firePosition(),
-        activeItem.ownerEntityId(),
-        self:aimVector(inaccuracy or self.inaccuracy),
-        false,
-        params
-      )
-  end
-  return projectileId
-end
-
-function GunFire:firePosition()
-  return vec2.add(mcontroller.position(), activeItem.handPosition(self.weapon.muzzleOffset))
-end
-
-function GunFire:aimVector(inaccuracy)
-  local aimVector = vec2.rotate({1, 0}, self.weapon.aimAngle + sb.nrand(inaccuracy, 0))
-  aimVector[1] = aimVector[1] * mcontroller.facingDirection()
-  return aimVector
-end
-
-function GunFire:energyPerShot()
-	return self.energyUsage * self.fireTime * (self.energyUsageMultiplier or 1.0)
-end
-
-function GunFire:damagePerShot()
-  return (self.baseDamage or (self.baseDps * self.fireTime)) * (self.baseDamageMultiplier or 1.0) * config.getParameter("damageLevelMultiplier") / self.projectileCount
-end
-
-function GunFire:uninit()
-end
