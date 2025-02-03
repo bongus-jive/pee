@@ -27,5 +27,13 @@
         }
       ]
     }
+  ],
+
+  "actionOnReap": [
+    {
+      "action": "particle",
+      "specification": "pat_peegun_peesplash",
+      "rotate": true
+    }
   ]
 }

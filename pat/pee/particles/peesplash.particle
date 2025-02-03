@@ -1,0 +1,25 @@
+{
+  "kind": "pat_peegun_peesplash",
+  "definition": {
+    "type": "textured",
+    "image": "/pat/pee/particles/pee.png",
+    "layer": "middle",
+    "size": 0.8,
+    "color": [ 255, 210, 0, 127 ],
+    "position": [ -0.22, 0 ],
+    "initialVelocity": [ -4, 0 ],
+    "finalVelocity": [ 0, -50 ],
+    "approach": [ 0, 40 ],
+    "timeToLive": 0.15,
+    "destructionTime": 0.25,
+    "destructionAction": "shrink",
+    "collidesForeground": true,
+    "variance": {
+      "initialVelocity": [ 8, 8 ],
+      "position": [ 0.25, 0.025 ],
+      "size": 0.4,
+      "rotation": 360,
+      "angularVelocity": 360
+    }
+  }
+}
