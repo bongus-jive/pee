@@ -45,6 +45,7 @@ function pissing(dt, fireMode)
   activeItem.setRecoil(false)
 
   local soundRepeatTimer = 0
+  local startWiggleTimer = self.startInaccuracyTime
   local pissAngle = self.aimAngle * self.aimAngleMultiplier
 
   while fireMode ~= "none" and not mcontroller.crouching() and status.overConsumeResource("energy", self.energyUsage * dt) do
@@ -55,9 +56,15 @@ function pissing(dt, fireMode)
       animator.setSoundPitch("piss", util.randomInRange(self.soundPitchRange))
       animator.playSound("piss")
     end
+
+    local inaccuracy = self.inaccuracy
+    if startWiggleTimer > 0 then
+      startWiggleTimer = math.max(0, startWiggleTimer - dt)
+      inaccuracy = util.lerp(startWiggleTimer / self.startInaccuracyTime, self.inaccuracy, self.startInaccuracy)
+    end
     
     pissAngle = approach(pissAngle, self.aimAngle * self.aimAngleMultiplier, self.aimAngleApproach)
-    local angle = pissAngle + sb.nrand(self.inaccuracy, 0)
+    local angle = pissAngle + sb.nrand(inaccuracy, 0)
 
     spawnPiss(angle)
 
