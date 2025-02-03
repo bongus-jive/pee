@@ -26,7 +26,7 @@
   "scripts": [ "pee.lua" ],
 
   "scriptConfig": {
-    "projectileType": "pat_peegunp",
+    "projectileType": "pat_peegun_pee",
     "projectileOffset": [ -0.375, -0.8125 ],
 
     "speedRange": [ 15, 30 ],
