@@ -40,6 +40,8 @@
     "aimAngleApproach": 0.08,
 
     "soundRepeatTime": 0.2,
-    "soundPitchRange": [ 0.8, 1.2 ]
+    "soundPitchRange": [ 0.8, 1.2 ],
+
+    "zipProjectile": "pat_peegun_zip"
   }
 }

@@ -67,3 +67,9 @@ function approach(current, target, rate)
   return current + fractionalRate * (target - current)
 end
 
+function uninit()
+  local zip = config.getParameter("zipProjectile")
+  if zip then
+    world.spawnProjectile(zip, mcontroller.position(), self.ownerId)
+  end
+end

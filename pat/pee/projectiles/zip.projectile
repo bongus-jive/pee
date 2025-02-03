@@ -1,0 +1,18 @@
+{
+  "projectileName": "pat_peegun_zip",
+  "image": "/projectiles/invisibleprojectile/invisibleprojectile.png",
+  "timeToLive": 0.04,
+  "onlyHitTerrain": true,
+  "movementSettings": {
+    "collisionEnabled": false,
+    "collisionPoly": [ ]
+  },
+  "periodicActions": [
+    {
+      "time": 0,
+      "repeat": false,
+      "action": "sound",
+      "options": [ "/sfx/objects/mannequin_close.ogg" ]
+    }
+  ]
+}
