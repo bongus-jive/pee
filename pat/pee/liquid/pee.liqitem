@@ -1,10 +1,10 @@
 {
-  "itemName" : "pat_peeli",
-  "rarity" : "Essential",
-  "category" : "liquid",
-  "inventoryIcon" : "pee.png",
-  "shortdescription" : "pee",
-  "description" : "yes",
+  "itemName": "pat_peeli",
+  "rarity": "Essential",
+  "category": "liquid",
+  "inventoryIcon": "pee.png",
+  "shortdescription": "pee",
+  "description": "yes",
 
-  "liquid" : "pat_peel"
+  "liquid": "pat_peel"
 }
