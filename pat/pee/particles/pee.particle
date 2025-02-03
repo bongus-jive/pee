@@ -1,0 +1,21 @@
+{
+  "kind": "pat_peegun_pee",
+  "definition": {
+    "type": "textured",
+    "image": "/pat/pee/particles/pee.png",
+    "layer": "middle",
+    "size": 1,
+    "color": [ 255, 210, 0, 85 ],
+    "position": [ -0.22, 0 ],
+    "initialVelocity": [ 10, 0 ],
+    "timeToLive": 0,
+    "destructionTime": 0.12,
+    "destructionAction": "shrink",
+    "collidesForeground": true,
+    "variance": {
+      "initialVelocity": [ 8, 0.5 ],
+      "position": [ 0.25, 0.025 ],
+      "size": 0.2
+    }
+  }
+}

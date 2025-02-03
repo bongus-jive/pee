@@ -1,15 +1,31 @@
 {
-  "projectileName" : "pat_peegun_pee",
-  "image" : "pee.png",
-  "physics" : "grenade",
-  "animationCycle" : 0.25,
-  "frameNumber" : 1,
-  "damageKind" : "nodamage",
-  "pointLight" : false,
-  "flippable" : true,
-  "actionOnReap" : [ ],
-  "statusEffects" : [ ],
-  "power" : 5.0,
-  "speed" : 45,
-  "knockback" : 0
+  "projectileName": "pat_peegun_pee",
+  "image": "/projectiles/invisibleprojectile/invisibleprojectile.png",
+  "damageKind": "nodamage",
+  "flippable": true,
+  "power": 5,
+  "speed": 45,
+
+  "movementSettings": {
+    "gravityMultiplier": 0.7,
+    "stopOnFirstBounce": true,
+    "collisionPoly": [ [ -0.1, 0 ], [ 0, -0.1 ], [ 0.1, 0 ], [ 0, 0.1 ] ],
+    "ignorePlatformCollision": true,
+    "maximumCorrection": 1
+  },
+
+  "periodicActions": [
+    {
+      "time": 0,
+      "action": "loop",
+      "count": 3,
+      "body": [
+        {
+          "action": "particle",
+          "specification": "pat_peegun_pee",
+          "rotate": true
+        }
+      ]
+    }
+  ]
 }
