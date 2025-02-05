@@ -1,10 +1,10 @@
 {
-  "itemName": "pat_peeli",
-  "rarity": "Essential",
+  "itemName": "pat_liquidpee",
+  "rarity": "Common",
   "category": "liquid",
-  "inventoryIcon": "pee.png",
-  "shortdescription": "pee",
-  "description": "yes",
+  "inventoryIcon": "peeicon.png",
+  "shortdescription": "Pee",
+  "description": "A measure of piss.",
 
-  "liquid": "pat_peel"
+  "liquid": "pat_pee"
 }
