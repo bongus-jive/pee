@@ -80,6 +80,7 @@ function spawnPiss(angle)
   local aimVector = {math.cos(angle) * mcontroller.facingDirection(), math.sin(angle)}
 
   local params = {}
+  params.referenceVelocity = {mcontroller.xVelocity(), 0}
   params.speed = util.interpolateHalfSigmoid(status.resourcePercentage("energy"), self.speedRange)
 
   world.spawnProjectile(self.projectileType, position, self.ownerId, aimVector, false, params)
