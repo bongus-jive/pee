@@ -84,10 +84,13 @@ function pissing(dt, fireMode)
 end
 
 function spawnPiss(angle)
-  local offset = self.crouching and self.crouchProjectileOffset or self.projectileOffset
-  local position = vec2.add(mcontroller.position(), activeItem.handPosition(offset))
+  local direction, rotation = mcontroller.facingDirection(), mcontroller.rotation()
+  angle = (angle or 0) + (rotation * direction)
 
-  local aimVector = {math.cos(angle) * mcontroller.facingDirection(), math.sin(angle)}
+  local offset = self.crouching and self.crouchProjectileOffset or self.projectileOffset
+  local position = vec2.add(mcontroller.position(), vec2.rotate(activeItem.handPosition(offset), rotation))
+
+  local aimVector = {math.cos(angle) * direction, math.sin(angle)}
 
   local params = {}
   params.referenceVelocity = {mcontroller.xVelocity(), 0}
