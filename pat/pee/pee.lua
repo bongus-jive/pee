@@ -94,8 +94,7 @@ function approach(current, target, rate)
 end
 
 function uninit()
-  local zip = config.getParameter("zipProjectile")
-  if zip then
-    world.spawnProjectile(zip, mcontroller.position(), self.ownerId)
+  if self.zipProjectile then
+    world.spawnProjectile(self.zipProjectile, mcontroller.position(), self.ownerId)
   end
 end
