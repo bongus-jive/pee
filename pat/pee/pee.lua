@@ -9,25 +9,30 @@ function init()
   animator.playSound("unzip")
 
   activeItem.setRecoil(true)
-  activeItem.setFrontArmFrame(self.armFrames[1])
-  activeItem.setBackArmFrame(self.armFrames[2])
+  setArmFrames(mcontroller.crouching() and self.crouchArmFrames or self.armFrames)
 
   self.ownerId = activeItem.ownerEntityId()
+
+  self.crouchAngleAdjust = util.toRadians(self.crouchAngleAdjust)
 
   self.aimOffset = self.projectileOffset[2] - 0.25 -- weapon.lua line 11 moment
 end
 
 function update(dt, fireMode, shiftHeld, moves)
   self.aimAngle, self.aimDirection = activeItem.aimAngleAndDirection(self.aimOffset, activeItem.ownerAimPosition())
+  activeItem.setFacingDirection(self.aimDirection)
 
-  local standing = not mcontroller.crouching()
-  activeItem.setHoldingItem(standing)
-
-  if standing then
-    activeItem.setFacingDirection(self.aimDirection)
+  if not mcontroller.crouching() then
+    if self.crouching then
+      self.crouching = false
+      setArmFrames(self.armFrames)
+    end
+  elseif not self.crouching then
+    self.crouching = true
+    setArmFrames(self.crouchArmFrames)
   end
 
-  if not self.pissThread and fireMode ~= "none" and standing and status.resourcePositive("energy") then
+  if not self.pissThread and fireMode ~= "none" and status.resourcePositive("energy") then
     self.pissThread = coroutine.create(pissing)
   end
 
@@ -48,7 +53,7 @@ function pissing(dt, fireMode)
   local startWiggleTimer = self.startInaccuracyTime
   local pissAngle = self.aimAngle * self.aimAngleMultiplier
 
-  while fireMode ~= "none" and not mcontroller.crouching() and status.overConsumeResource("energy", self.energyUsage * dt) do
+  while fireMode ~= "none" and status.overConsumeResource("energy", self.energyUsage * dt) do
     if soundRepeatTimer > 0 then
       soundRepeatTimer = soundRepeatTimer - dt
     else
@@ -66,6 +71,10 @@ function pissing(dt, fireMode)
     pissAngle = approach(pissAngle, self.aimAngle * self.aimAngleMultiplier, self.aimAngleApproach)
     local angle = pissAngle + sb.nrand(inaccuracy, 0)
 
+    if self.crouching then
+      angle = angle + self.crouchAngleAdjust
+    end
+
     spawnPiss(angle)
 
     dt, fireMode = coroutine.yield()
@@ -75,7 +84,8 @@ function pissing(dt, fireMode)
 end
 
 function spawnPiss(angle)
-  local position = vec2.add(mcontroller.position(), activeItem.handPosition(self.projectileOffset))
+  local offset = self.crouching and self.crouchProjectileOffset or self.projectileOffset
+  local position = vec2.add(mcontroller.position(), activeItem.handPosition(offset))
 
   local aimVector = {math.cos(angle) * mcontroller.facingDirection(), math.sin(angle)}
 
@@ -91,6 +101,11 @@ function approach(current, target, rate)
   if max <= rate then return target end
   local fractionalRate = rate / max
   return current + fractionalRate * (target - current)
+end
+
+function setArmFrames(frames)
+  activeItem.setFrontArmFrame(frames[1])
+  activeItem.setBackArmFrame(frames[2])
 end
 
 function uninit()

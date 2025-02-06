@@ -28,6 +28,7 @@
   "scriptConfig": {
     "projectileType": "pat_peegun_pee",
     "projectileOffset": [ -0.375, -0.8125 ],
+    "crouchProjectileOffset": [ -0.875, -0.4375 ],
 
     "speedRange": [ 15, 30 ],
     "inaccuracy": 0.006,
@@ -37,9 +38,11 @@
     "energyUsage": 60,
 
     "armFrames": [ "walk.1", "idle.1" ],
+    "crouchArmFrames": [ "jump.1", "jump.1" ],
 
     "aimAngleMultiplier": 0.25,
     "aimAngleApproach": 0.08,
+    "crouchAngleAdjust": -45,
 
     "soundRepeatTime": 0.2,
     "soundPitchRange": [ 0.8, 1.2 ],
