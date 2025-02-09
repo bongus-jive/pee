@@ -39,6 +39,12 @@
       "action": "liquid",
       "liquid": "pat_pee",
       "quantity": 0.018
+    },
+    {
+      "action": "applySurfaceMod",
+      "previousMod": "tilleddry",
+      "newMod": "tilled",
+      "radius": 1
     }
   ]
 }
