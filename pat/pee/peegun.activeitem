@@ -44,7 +44,7 @@
     "class": "Piss",
 
     "projectileType": "pat_peegun_pee",
-    "baseDps": 1,
+    "baseDps": 0,
     "speedRange": [ 15, 30 ],
     "inaccuracy": 0.006,
 
