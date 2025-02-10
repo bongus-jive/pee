@@ -9,7 +9,6 @@
   "twoHanded": true,
   "price": 0,
   "maxStack": 1,
-  "level": 1,
 
   "inventoryIcon": "icon.png",
 
@@ -26,27 +25,36 @@
   "scripts": [ "peegun.lua" ],
 
   "scriptConfig": {
-    "projectileType": "pat_peegun_pee",
     "projectileOffset": [ -0.375, -0.8125 ],
     "crouchProjectileOffset": [ -0.875, -0.4375 ],
-
-    "speedRange": [ 15, 30 ],
-    "inaccuracy": 0.006,
-    "startInaccuracy": 0.04,
-    "startInaccuracyTime": 0.18,
-
-    "energyUsage": 60,
 
     "armFrames": [ "walk.1", "idle.1" ],
     "crouchArmFrames": [ "jump.1", "jump.1" ],
 
-    "aimAngleMultiplier": 0.25,
-    "aimAngleApproach": 0.08,
-    "crouchAngleAdjust": -45,
-
-    "soundRepeatTime": 0.2,
-    "soundPitchRange": [ 0.8, 1.2 ],
+    "aimApproach": 0.3,
+    "aimRange": [ -40, 45 ],
+    "crouchAimRange": [ -85, -25 ],
 
     "zipProjectile": "pat_peegun_zip"
+  },
+
+  "primaryAbility": {
+    "scripts": [ "/pat/pee/piss.lua" ],
+    "class": "Piss",
+
+    "projectileType": "pat_peegun_pee",
+    "baseDps": 1,
+    "speedRange": [ 15, 30 ],
+    "inaccuracy": 0.006,
+
+    "wiggleInaccuracy": 0.04,
+    "wiggleTime": 0.25,
+
+    "resourceUsage": [ "energy", 25 ],
+    "resourceAdd": [ "health", 0.1 ],
+
+    "soundName": "piss",
+    "soundPitchRange": [ 0.8, 1.2 ],
+    "soundRepeatTime": 0.2
   }
 }
