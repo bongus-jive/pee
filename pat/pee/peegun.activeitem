@@ -23,7 +23,7 @@
     }
   },
 
-  "scripts": [ "pee.lua" ],
+  "scripts": [ "peegun.lua" ],
 
   "scriptConfig": {
     "projectileType": "pat_peegun_pee",
