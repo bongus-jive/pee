@@ -1,0 +1,25 @@
+{
+  "kind": "pat_peegun_bloodsplash",
+  "definition": {
+    "type": "textured",
+    "image": "/pat/pee/particles/pee.png",
+    "layer": "middle",
+    "size": 0.7,
+    "color": [ 150, 0, 0, 85 ],
+    "position": [ -0.22, 0 ],
+    "initialVelocity": [ -3, 0 ],
+    "finalVelocity": [ 0, -50 ],
+    "approach": [ 0, 30 ],
+    "timeToLive": 0.2,
+    "destructionTime": 0.2,
+    "destructionAction": "shrink",
+    "collidesForeground": true,
+    "trail": true,
+    "variance": {
+      "initialVelocity": [ 6, 6 ],
+      "position": [ 0.2, 0.02 ],
+      "size": 0.3,
+      "timeToLive": 0.8
+    }
+  }
+}

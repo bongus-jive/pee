@@ -1,0 +1,39 @@
+{
+  "projectileName": "pat_peegun_blood",
+  "image": "/projectiles/invisibleprojectile/invisibleprojectile.png",
+  "damageKind": "nodamage",
+  "hydrophobic": true,
+  "power": 5,
+  "speed": 45,
+
+  "movementSettings": {
+    "gravityMultiplier": 0.7,
+    "stopOnFirstBounce": true,
+    "collisionPoly": [ [ -0.1, 0 ], [ 0, -0.1 ], [ 0.1, 0 ], [ 0, 0.1 ] ],
+    "ignorePlatformCollision": true,
+    "maximumCorrection": 1
+  },
+
+  "periodicActions": [
+    {
+      "time": 0,
+      "action": "loop",
+      "count": 2,
+      "body": [
+        {
+          "action": "particle",
+          "specification": "pat_peegun_blood",
+          "rotate": true
+        }
+      ]
+    }
+  ],
+
+  "actionOnReap": [
+    {
+      "action": "particle",
+      "specification": "pat_peegun_bloodsplash",
+      "rotate": true
+    }
+  ]
+}

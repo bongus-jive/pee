@@ -18,7 +18,8 @@
     },
     "sounds": {
       "unzip": [ "/sfx/objects/mannequin_open.ogg" ],
-      "piss": [ "/sfx/tools/wateringcan1.ogg", "/sfx/tools/wateringcan2.ogg", "/sfx/tools/wateringcan3.ogg", "/sfx/tools/wateringcan4.ogg" ]
+      "piss": [ "/sfx/tools/wateringcan1.ogg", "/sfx/tools/wateringcan2.ogg", "/sfx/tools/wateringcan3.ogg", "/sfx/tools/wateringcan4.ogg" ],
+      "blood": [ "/sfx/projectiles/bloodvomit1.ogg", "/sfx/projectiles/bloodvomit2.ogg", "/sfx/projectiles/bloodvomit3.ogg", "/sfx/projectiles/bloodvomit4.ogg", "/sfx/projectiles/bloodvomit5.ogg", "/sfx/projectiles/bloodvomit6.ogg", "/sfx/projectiles/bloodvomit7.ogg" ]
     }
   },
 
@@ -56,5 +57,24 @@
     "soundName": "piss",
     "soundPitchRange": [ 0.8, 1.2 ],
     "soundRepeatTime": 0.2
+  },
+
+  "altAbility": {
+    "scripts": [ "/pat/pee/piss.lua" ],
+    "class": "Piss",
+
+    "projectileType": "pat_peegun_blood",
+    "baseDps": 50,
+    "speedRange": [ 15, 25 ],
+    "inaccuracy": 0.02,
+
+    "wiggleInaccuracy": 0.12,
+    "wiggleTime": 0.6,
+
+    "resourceUsage": [ "health", 25 ],
+
+    "soundName": "blood",
+    "soundPitchRange": [ 0.4, 0.8 ],
+    "soundRepeatTime": 0.22
   }
 }

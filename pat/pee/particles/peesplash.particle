@@ -4,7 +4,7 @@
     "type": "textured",
     "image": "/pat/pee/particles/pee.png",
     "layer": "middle",
-    "size": 0.8,
+    "size": 0.7,
     "color": [ 255, 210, 0, 127 ],
     "position": [ -0.22, 0 ],
     "initialVelocity": [ -4, 0 ],
@@ -14,6 +14,7 @@
     "destructionTime": 0.25,
     "destructionAction": "shrink",
     "collidesForeground": true,
+    "trail": true,
     "variance": {
       "initialVelocity": [ 8, 8 ],
       "position": [ 0.25, 0.025 ],
