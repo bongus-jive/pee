@@ -1,10 +1,11 @@
 {
-  "version" : "1.1",
   "author" : "patman",
-  "tags" : "Miscellaneous",
-  "description" : "adds item\nis pee item\n\npeeing heals you\nalt ability is red pee\nred peeing hurts you\ncan be upgrade\nupgrade pee creates more pee\nupgrade red pee kills things\n\nmake with hand\n\njoin discord or i will pee on you\nhttps://discord.gg/GdsQSgV\ngive me money or i will pee on you\nhttps://www.patreon.com/pathiccstar",
-  "name" : "pee",
+  "description" : "adds pissing",
   "friendlyName" : "pee",
+  "link" : "steam://url/CommunityFilePage/1667881626",
+  "name" : "pat_pee",
   "steamContentId" : "1667881626",
-  "link" : "steam://url/CommunityFilePage/1667881626"
+  "steamDescription" : "adds peeing\n\nmake at hand\n\npissing consumes energy & heals 10% of your max health per second\nit spawns liquid pee and also waters tilled soil\nyou can also piss blood. it drains your health but deals some damage\n\n[img]https://i.imgur.com/wXjYMqP.gif[/img]https://discord.gg/GdsQSgV\n[img]https://i.imgur.com/uyG8oTa.gif[/img]https://www.patreon.com/pathiccstar\n[img]https://i.imgur.com/xVfcRRH.gif[/img]https://ko-fi.com/patmanf\n[img]https://i.imgur.com/jJAj6jF.gif[/img]https://github.com/bongus-jive/pee",
+  "tags" : "Miscellaneous",
+  "version" : "1.2"
 }
