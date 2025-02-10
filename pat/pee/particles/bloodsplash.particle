@@ -19,7 +19,8 @@
       "initialVelocity": [ 6, 6 ],
       "position": [ 0.2, 0.02 ],
       "size": 0.3,
-      "timeToLive": 0.8
+      "rotation": 360,
+      "angularVelocity": 360
     }
   }
 }
