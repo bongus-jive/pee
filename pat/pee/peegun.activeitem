@@ -54,6 +54,8 @@
     "resourceUsage": [ "energy", 25 ],
     "resourceAdd": [ "health", 0.1 ],
 
+    "emote": [ "sad", 0.33 ],
+
     "soundName": "piss",
     "soundPitchRange": [ 0.8, 1.2 ],
     "soundRepeatTime": 0.2

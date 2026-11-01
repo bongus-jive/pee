@@ -17,6 +17,8 @@ function Piss:piss()
   local soundRepeatTimer = 0
   local wiggleTimer = self.wiggleTime
 
+  local emote = self:getEmote()
+
   while self.fireMode == self.abilitySlot and self:consumeResource() do
     if soundRepeatTimer > 0 then
       soundRepeatTimer = soundRepeatTimer - self.dt
@@ -25,6 +27,8 @@ function Piss:piss()
       animator.setSoundPitch(self.soundName, util.randomInRange(self.soundPitchRange))
       animator.playSound(self.soundName)
     end
+
+    if emote then activeItem.emote(emote) end
 
     local inaccuracy = self.inaccuracy
     if wiggleTimer > 0 then
@@ -84,4 +88,16 @@ end
 
 function Piss:damagePerShot()
   return self.baseDps * self.dt
+end
+
+function Piss:getEmote()
+  if not self.emote then return end
+
+  local chance = self.emote[2]
+  if chance then
+    local seed = entity.uniqueId() or (npc and npc.seed())
+    if not seed or chance < sb.staticRandomDouble(seed) then return end
+  end
+
+  return self.emote[1]
 end
