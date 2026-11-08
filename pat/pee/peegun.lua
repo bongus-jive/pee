@@ -1,12 +1,16 @@
 require "/scripts/vec2.lua"
-require "/scripts/util.lua"
 require "/items/active/weapons/weapon.lua"
 
 function init()
-  setmetatable(self, extend(config.getParameter("scriptConfig", {})))
+  local cfg = config.getParameter("scriptConfig")
+  local species = (player and player.species()) or (npc and npc.species())
+  local override = cfg.speciesOverrides[species]
+  if override then cfg = sb.jsonMerge(cfg, override) end
+
+  setmetatable(self, {__index = cfg})
 
   local function tableToRadians(t)
-    t[1], t[2] = util.toRadians(t[1]), util.toRadians(t[2])
+    t[1], t[2] = math.rad(t[1]), math.rad(t[2])
   end
   tableToRadians(self.aimRange)
   tableToRadians(self.crouchAimRange)

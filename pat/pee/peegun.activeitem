@@ -36,7 +36,9 @@
     "aimRange": [ -40, 45 ],
     "crouchAimRange": [ -85, -25 ],
 
-    "zipProjectile": "pat_peegun_zip"
+    "zipProjectile": "pat_peegun_zip",
+
+    "speciesOverrides": {}
   },
 
   "primaryAbility": {
